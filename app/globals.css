@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* ─── GRADIENT STOPS ───────────────────────────────────────────────────────── */
+:root {
+  /* default (light-mode) gradient: black → medium gray */
+  --gradient-start: #1a1a1a;
+  --gradient-end:   #3d3d3d;
+
+  /* dark-mode gradient: pitch black → dark charcoal */
+  --gradient-dark-start: #000000;
+  --gradient-dark-end:   #2e2e2e;
+
+  /* text color (light on dark) */
+  --text-color: #ededed;
+
+  /* build the default gradient */
+  --bg-gradient: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+}
+
+/* swap in the darker stops if OS is in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-gradient: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-end));
+  }
+}
+
+/* ─── APPLY AS BACKGROUND ───────────────────────────────────────────────────── */
+body {
+  background: var(--bg-gradient) no-repeat center / cover fixed;
+  color:      var(--text-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* animated gradient for headline */
+@keyframes gradient-slide {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+.animated-gradient {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #00CDFE,    /* bright primary */
+    #4b43e3,    /* bright secondary */
+    #ff4ec8     /* repeat primary for a seamless loop */
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-slide 6s ease-in-out infinite;
+}
