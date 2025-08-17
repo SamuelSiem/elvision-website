@@ -33,7 +33,8 @@ export async function POST(req: Request): Promise<Response> {
       JSON.stringify({ ok: true }),
       { status: 200, headers: { 'Content-Type': 'application/json' } },
     );
-  } catch (err) {
+  } catch (error) {
+    console.error('contact: resend failed', error);
     return new Response(
       JSON.stringify({ error: 'Failed to send message' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } },
