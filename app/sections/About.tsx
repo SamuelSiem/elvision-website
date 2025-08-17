@@ -15,10 +15,15 @@ export default function About() {
   });
 
   return (
-    <Section id="about" className="relative overflow-hidden bg-gradient-to-b from-darker to-dark py-20">
+    <Section id="about" className="relative overflow-hidden bg-gradient-to-b from-[#0A0E23] via-[#0A0E23] to-dark py-24">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-70" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(var(--primary-rgb),0.1)_0%,transparent_60%)] opacity-70" />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.08)_0%,transparent_65%)] opacity-70" />
+      {/* Extra blend at top-right */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_95%_0%,rgba(var(--primary-rgb),0.05)_0%,transparent_75%)] blur-2xl opacity-60" />
+      <div className="pointer-events-none absolute top-0 right-0 w-full h-40 bg-gradient-to-bl from-[#0A0E23]/85 via-[#0A0E23]/40 to-transparent opacity-80" />
+      {/* Seamless connection from hero */}
+      <div className="pointer-events-none absolute -top-40 left-0 right-0 h-80 bg-gradient-to-t from-[#0A0E23] via-[#0A0E23]/85 to-transparent" />
 
       <div className="container mx-auto px-4 relative">
         <SectionTitle
