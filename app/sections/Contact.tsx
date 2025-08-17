@@ -45,9 +45,12 @@ export default function Contact() {
     setStatus('loading');
 
     try {
-      // Here you would typically send the form data to your backend
-      // For now, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error('Failed');
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch {
