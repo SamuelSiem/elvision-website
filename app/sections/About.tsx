@@ -108,7 +108,7 @@ export default function About() {
                 </div>
                 <div className="group bg-darker/80 backdrop-blur-sm p-6 rounded-lg border border-gray-800 hover:border-primary/50 transition-all duration-300">
                   <div className="flex flex-col items-start">
-                    <span className="text-4xl font-bold text-white mb-2">99%</span>
+                    <span className="text-4xl font-bold text-white mb-2">100%</span>
                     <span className="text-base text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
                       Client Satisfaction
                     </span>
