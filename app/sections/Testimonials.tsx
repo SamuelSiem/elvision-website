@@ -106,7 +106,7 @@ export default function Testimonials() {
 
         <div className="relative max-w-4xl mx-auto">
           {/* Testimonial Slider */}
-          <div className="relative min-h-[300px] flex items-center">
+          <div className="relative min-h-[420px] md:min-h-[360px] flex items-center">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={currentIndex}
@@ -121,7 +121,7 @@ export default function Testimonials() {
                 }}
                 className="absolute w-full"
               >
-                <div className="text-center px-4 md:px-8">
+                <div className="text-center px-4 md:px-8 pb-10 md:pb-12">
                   <p className="text-xl md:text-2xl text-gray-300 italic mb-8">
                     &quot;{testimonials[currentIndex].quote}&quot;
                   </p>
@@ -158,7 +158,7 @@ export default function Testimonials() {
           </div>
 
           {/* Pagination Dots */}
-          <div className="flex justify-center space-x-2 mt-8">
+          <div className="relative z-10 flex justify-center space-x-2 mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}

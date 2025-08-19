@@ -44,6 +44,11 @@ export default function RootLayout({
       <body className={`${inter.className} bg-darker text-main antialiased`}>
         <Navigation />
         <main className="min-h-screen">{children}</main>
+        <footer className="border-t border-gray-800/60 bg-darker/60">
+          <div className="container mx-auto px-4 py-6 text-center text-sm text-main-secondary">
+            © {new Date().getFullYear()} Elvision Technology. All rights reserved.
+          </div>
+        </footer>
       </body>
     </html>
   );
