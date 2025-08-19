@@ -1,5 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import Navigation from './components/Navigation';
 import type { Metadata } from 'next';
 
@@ -49,6 +50,7 @@ export default function RootLayout({
             © {new Date().getFullYear()} Elvision Technology. All rights reserved.
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
