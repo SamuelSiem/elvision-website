@@ -75,30 +75,47 @@ export default function Experience() {
           <div className="relative hidden md:block py-8">
             <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-primary via-accent to-primary-light opacity-30" />
 
-            <div className="relative flex items-center justify-between gap-10">
+            <div className="relative flex items-center justify-between gap-6">
               {experiences.map((exp, index) => (
-                <motion.button
+                <motion.div
                   key={exp.period}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onClick={() => setSelected(index)}
-                  className="group relative flex flex-col items-center focus:outline-none"
+                  className="relative flex-1 flex justify-center"
                 >
-                  {/* Dot */}
-                  <span className="relative mb-3">
-                    <span className="absolute -inset-2 rounded-full bg-primary/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30 group-hover:scale-110 transition-transform" />
-                  </span>
-                  {/* Period */}
-                  <span className="text-sm font-semibold text-primary">
-                    {exp.period}
-                  </span>
-                  {/* Company/Title */}
-                  <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm text-center whitespace-nowrap">
-                    {exp.company} · {exp.title}
-                  </span>
-                </motion.button>
+                  {/* Alternating cards */}
+                  {index % 2 === 0 ? (
+                    <>
+                      <button
+                        onClick={() => setSelected(index)}
+                        className="group absolute -top-28 w-56 text-center focus:outline-none"
+                      >
+                        <div className="bg-darker/80 border border-gray-800 rounded-lg p-3 hover:border-primary/50 transition-colors">
+                          <div className="text-xs font-semibold text-primary">{exp.period}</div>
+                          <div className="text-sm text-white mt-1">{exp.company}</div>
+                        </div>
+                      </button>
+                      <span className="absolute -top-8 h-8 w-px bg-primary/50" />
+                    </>
+                  ) : (
+                    <>
+                      <span className="absolute -bottom-8 h-8 w-px bg-primary/50" />
+                      <button
+                        onClick={() => setSelected(index)}
+                        className="group absolute -bottom-28 w-56 text-center focus:outline-none"
+                      >
+                        <div className="bg-darker/80 border border-gray-800 rounded-lg p-3 hover:border-primary/50 transition-colors">
+                          <div className="text-xs font-semibold text-primary">{exp.period}</div>
+                          <div className="text-sm text-white mt-1">{exp.company}</div>
+                        </div>
+                      </button>
+                    </>
+                  )}
+
+                  {/* Center dot */}
+                  <span className="relative z-10 block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30" />
+                </motion.div>
               ))}
             </div>
           </div>
@@ -121,7 +138,7 @@ export default function Experience() {
                     {exp.period}
                   </span>
                   <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm">
-                    {exp.company} · {exp.title}
+                    {exp.company}
                   </span>
                 </motion.button>
               ))}
