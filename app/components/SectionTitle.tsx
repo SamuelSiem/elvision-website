@@ -32,10 +32,9 @@ export default function SectionTitle({
       className={`${centered ? 'text-center' : ''} ${className}`}
     >
       {actions && centered ? (
-        <div className="grid grid-cols-3 items-center mb-4">
-          <div />
+        <div className="mb-4 flex items-center justify-center gap-4">
           <h2 className="text-3xl md:text-4xl font-bold text-main text-center">{title}</h2>
-          <div className="justify-self-end">{actions}</div>
+          <div>{actions}</div>
         </div>
       ) : (
         <div className={`${actions ? 'flex items-center justify-between mb-4' : ''}`}>

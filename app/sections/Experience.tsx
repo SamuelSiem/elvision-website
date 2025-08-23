@@ -69,9 +69,9 @@ export default function Experience() {
         <div className="relative max-w-6xl mx-auto">
           {/* Desktop: evenly spaced horizontal timeline */}
           <div className="relative hidden md:block pt-16 pb-20">
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-gradient-to-r from-primary via-accent to-primary-light opacity-60 z-0" />
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-gradient-to-r from-primary/80 via-accent/80 to-primary-light/80 z-0" />
 
-            <div className="relative flex items-center justify-between gap-6 z-10">
+            <div className="relative flex items-center justify-between gap-10 z-10">
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.period}
@@ -85,23 +85,23 @@ export default function Experience() {
                     <>
                       <button
                         onClick={() => setSelected(index)}
-                        className="group absolute -top-28 w-56 text-center focus:outline-none"
+                        className="group absolute -top-28 w-64 text-center focus:outline-none"
                       >
-                        <div className="bg-darker/80 border border-gray-800 rounded-lg p-3 hover:border-primary/50 transition-colors">
+                        <div className="bg-darker/80 border border-gray-800 rounded-xl p-3 shadow-sm hover:shadow-primary/10 hover:border-primary/50 transition-all">
                           <div className="text-xs font-semibold text-primary">{exp.period}</div>
                           <div className="text-sm text-white mt-1">{exp.company}</div>
                         </div>
                       </button>
-                      <span className="absolute -top-8 h-8 w-px bg-primary/50" />
+                      <span className="absolute -top-8 h-8 w-0.5 bg-primary/70" />
                     </>
                   ) : (
                     <>
-                      <span className="absolute -bottom-8 h-8 w-px bg-primary/50" />
+                      <span className="absolute -bottom-8 h-8 w-0.5 bg-primary/70" />
                       <button
                         onClick={() => setSelected(index)}
-                        className="group absolute -bottom-28 w-56 text-center focus:outline-none"
+                        className="group absolute -bottom-28 w-64 text-center focus:outline-none"
                       >
-                        <div className="bg-darker/80 border border-gray-800 rounded-lg p-3 hover:border-primary/50 transition-colors">
+                        <div className="bg-darker/80 border border-gray-800 rounded-xl p-3 shadow-sm hover:shadow-primary/10 hover:border-primary/50 transition-all">
                           <div className="text-xs font-semibold text-primary">{exp.period}</div>
                           <div className="text-sm text-white mt-1">{exp.company}</div>
                         </div>
@@ -110,7 +110,7 @@ export default function Experience() {
                   )}
 
                   {/* Center dot */}
-                  <span className="relative z-10 block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30" />
+                  <span className="relative z-10 block w-3.5 h-3.5 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/40 ring-2 ring-darker" />
                 </motion.div>
               ))}
             </div>
