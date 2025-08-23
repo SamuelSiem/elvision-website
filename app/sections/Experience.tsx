@@ -58,7 +58,7 @@ export default function Experience() {
         className="mb-16"
       />
 
-      <div className="container mx-auto px-4 mb-8 flex justify-center">
+      <div className="container mx-auto px-4 mb-12 flex justify-center relative z-20">
         <Button
           href="/resume.pdf"
           variant="primary"
@@ -72,10 +72,10 @@ export default function Experience() {
       <motion.div ref={ref} className="container mx-auto px-4">
         <div className="relative max-w-6xl mx-auto">
           {/* Desktop: evenly spaced horizontal timeline */}
-          <div className="relative hidden md:block py-8">
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-gradient-to-r from-primary via-accent to-primary-light opacity-60" />
+          <div className="relative hidden md:block pt-32 pb-28">
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-gradient-to-r from-primary via-accent to-primary-light opacity-60 z-0" />
 
-            <div className="relative flex items-center justify-between gap-6">
+            <div className="relative flex items-center justify-between gap-6 z-10">
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.period}
