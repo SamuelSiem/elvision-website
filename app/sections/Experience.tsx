@@ -55,24 +55,20 @@ export default function Experience() {
       <SectionTitle
         title="Professional Experience"
         subtitle="A track record of delivering impactful data solutions across industries"
-        className="mb-16"
+        className="mb-10"
+        actions={
+          <Button href="/resume.pdf" variant="primary" size="sm" className="rounded-full px-4">
+            Download Resume
+          </Button>
+        }
       />
 
-      <div className="container mx-auto px-4 mb-12 flex justify-center relative z-20">
-        <Button
-          href="/resume.pdf"
-          variant="primary"
-          size="md"
-          className="rounded-full px-6"
-        >
-          Download Resume
-        </Button>
-      </div>
+      
 
       <motion.div ref={ref} className="container mx-auto px-4">
         <div className="relative max-w-6xl mx-auto">
           {/* Desktop: evenly spaced horizontal timeline */}
-          <div className="relative hidden md:block pt-32 pb-28">
+          <div className="relative hidden md:block pt-16 pb-20">
             <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-gradient-to-r from-primary via-accent to-primary-light opacity-60 z-0" />
 
             <div className="relative flex items-center justify-between gap-6 z-10">

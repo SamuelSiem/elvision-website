@@ -8,6 +8,7 @@ interface SectionTitleProps {
   subtitle?: string;
   centered?: boolean;
   className?: string;
+  actions?: React.ReactNode;
 }
 
 export default function SectionTitle({
@@ -15,6 +16,7 @@ export default function SectionTitle({
   subtitle,
   centered = true,
   className = '',
+  actions,
 }: SectionTitleProps) {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -29,9 +31,20 @@ export default function SectionTitle({
       transition={{ duration: 0.6 }}
       className={`${centered ? 'text-center' : ''} ${className}`}
     >
-      <h2 className="text-3xl md:text-4xl font-bold text-main mb-4">{title}</h2>
+      {actions && centered ? (
+        <div className="grid grid-cols-3 items-center mb-4">
+          <div />
+          <h2 className="text-3xl md:text-4xl font-bold text-main text-center">{title}</h2>
+          <div className="justify-self-end">{actions}</div>
+        </div>
+      ) : (
+        <div className={`${actions ? 'flex items-center justify-between mb-4' : ''}`}>
+          <h2 className={`text-3xl md:text-4xl font-bold text-main ${actions ? 'text-left' : 'mb-4'}`}>{title}</h2>
+          {actions && <div>{actions}</div>}
+        </div>
+      )}
       {subtitle && (
-        <p className="text-main/80 max-w-2xl mx-auto">
+        <p className={`text-main/80 max-w-2xl mx-auto ${actions && !centered ? 'text-left mx-0' : ''}`}>
           {subtitle}
         </p>
       )}
