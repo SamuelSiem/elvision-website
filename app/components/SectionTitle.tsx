@@ -31,21 +31,16 @@ export default function SectionTitle({
       transition={{ duration: 0.6 }}
       className={`${centered ? 'text-center' : ''} ${className}`}
     >
-      {actions && centered ? (
-        <div className="mb-4 flex items-center justify-center gap-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-main text-center">{title}</h2>
-          <div>{actions}</div>
-        </div>
-      ) : (
-        <div className={`${actions ? 'flex items-center justify-between mb-4' : ''}`}>
-          <h2 className={`text-3xl md:text-4xl font-bold text-main ${actions ? 'text-left' : 'mb-4'}`}>{title}</h2>
-          {actions && <div>{actions}</div>}
-        </div>
-      )}
+      <h2 className="text-3xl md:text-4xl font-bold text-main mb-4">{title}</h2>
       {subtitle && (
-        <p className={`text-main/80 max-w-2xl mx-auto ${actions && !centered ? 'text-left mx-0' : ''}`}>
+        <p className="text-main/80 max-w-2xl mx-auto">
           {subtitle}
         </p>
+      )}
+      {actions && (
+        <div className="mt-4 flex justify-center">
+          {actions}
+        </div>
       )}
     </motion.div>
   );
