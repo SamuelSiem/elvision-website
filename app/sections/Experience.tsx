@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useState } from 'react';
 import Section from '../components/Section';
 import SectionTitle from '../components/SectionTitle';
 
@@ -45,10 +46,8 @@ const experiences = [
 ];
 
 export default function Experience() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [selected, setSelected] = useState<number | null>(null);
 
   return (
     <Section id="experience" background="darker">
@@ -58,52 +57,87 @@ export default function Experience() {
         className="mb-16"
       />
 
-      <motion.div
-        ref={ref}
-        className="container mx-auto px-4"
-      >
-        <div className="relative max-w-5xl mx-auto">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-[7.5rem] top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-primary-light opacity-30" />
+      <motion.div ref={ref} className="container mx-auto px-4">
+        <div className="relative max-w-6xl mx-auto">
+          {/* Horizontal timeline */}
+          <div className="overflow-x-auto no-scrollbar">
+            <div className="relative min-w-full">
+              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-primary via-accent to-primary-light opacity-30" />
 
-          <div className="space-y-8">
-            {experiences.map((experience, index) => (
-              <motion.div
-                key={experience.period}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="relative flex flex-col md:flex-row group"
-              >
-                {/* Year with dot */}
-                <div className="flex-none w-full md:w-[7.5rem] mb-4 md:mb-0 flex items-center">
-                  <div className="relative flex items-center w-full md:justify-end">
-                    <div className="absolute left-0 md:right-0 md:left-auto w-3 h-3 bg-gradient-to-br from-primary to-accent rounded-full shadow-lg shadow-primary/30 transform -translate-x-1.5 md:translate-x-1.5" />
-                    <div className="pl-6 md:pr-6 text-lg font-semibold text-primary">
-                      {experience.period}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content Card */}
-                <div className="flex-1 md:pl-12">
-                  <div className="bg-darker/80 backdrop-blur-sm p-6 rounded-lg border border-gray-800 hover:border-primary/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/5">
-                    <h3 className="text-xl font-bold text-white group-hover:text-accent-light transition-colors duration-300">
-                      {experience.title}
-                    </h3>
-                    <p className="text-primary-light mb-3 group-hover:text-primary transition-colors duration-300">
-                      {experience.company}
-                    </p>
-                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      {experience.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+              <div className="relative flex items-center gap-10 md:gap-16 py-8">
+                {experiences.map((exp, index) => (
+                  <motion.button
+                    key={exp.period}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    onClick={() => setSelected(index)}
+                    className="group relative flex flex-col items-center focus:outline-none"
+                  >
+                    {/* Dot */}
+                    <span className="relative mb-3">
+                      <span className="absolute -inset-2 rounded-full bg-primary/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <span className="block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30" />
+                    </span>
+                    {/* Period */}
+                    <span className="text-sm font-semibold text-primary">
+                      {exp.period}
+                    </span>
+                    {/* Company/Title */}
+                    <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm text-center whitespace-nowrap">
+                      {exp.company} · {exp.title}
+                    </span>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {selected !== null && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+            onClick={() => setSelected(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              className="w-full max-w-2xl bg-darker/95 border border-gray-800 rounded-2xl p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-bold text-white">
+                    {experiences[selected].title}
+                  </h3>
+                  <p className="text-primary-light">
+                    {experiences[selected].company} • {experiences[selected].period}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelected(null)}
+                  className="text-main-secondary hover:text-white"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </div>
+              <p className="mt-4 text-gray-300">
+                {experiences[selected].description}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Section>
   );
-} 
+}
