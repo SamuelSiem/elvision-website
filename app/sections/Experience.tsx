@@ -33,7 +33,7 @@ const experiences = [
     description: 'Engineered integrated reporting pipelines in Python and Power BI; developed cross-departmental dashboards identifying $50M revenue opportunities and streamlining COVID-19 reporting processes.',
   },
   {
-    period: 'Jan–Jul 2020',
+    period: '2020',
     title: 'Data Analyst',
     company: 'Rocky Mountaineer',
     description: 'Provided data analysis to support multi-department operations, delivering insights that enhanced business decisions and improved operational efficiencies.',
@@ -58,7 +58,7 @@ export default function Experience() {
         className="mb-16"
       />
 
-      <div className="container mx-auto px-4 -mt-14 mb-6 flex justify-end">
+      <div className="container mx-auto px-4 mb-8 flex justify-center">
         <Button
           href="/resume.pdf"
           variant="primary"
@@ -73,7 +73,7 @@ export default function Experience() {
         <div className="relative max-w-6xl mx-auto">
           {/* Desktop: evenly spaced horizontal timeline */}
           <div className="relative hidden md:block py-8">
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-primary via-accent to-primary-light opacity-30" />
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-gradient-to-r from-primary via-accent to-primary-light opacity-60" />
 
             <div className="relative flex items-center justify-between gap-6">
               {experiences.map((exp, index) => (
@@ -122,7 +122,7 @@ export default function Experience() {
 
           {/* Mobile: stacked vertical timeline */}
           <div className="md:hidden relative py-2 pl-6">
-            <div className="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-primary-light opacity-30" />
+            <div className="absolute left-3 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b from-primary via-accent to-primary-light opacity-40" />
             <div className="space-y-6">
               {experiences.map((exp, index) => (
                 <motion.button
