@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
 import Section from '../components/Section';
 import SectionTitle from '../components/SectionTitle';
+import Button from '../components/Button';
 
 const experiences = [
   {
@@ -57,6 +58,17 @@ export default function Experience() {
         className="mb-16"
       />
 
+      <div className="container mx-auto px-4 -mt-14 mb-6 flex justify-end">
+        <Button
+          href="/resume.pdf"
+          variant="primary"
+          size="md"
+          className="rounded-full px-6"
+        >
+          Download Resume
+        </Button>
+      </div>
+
       <motion.div ref={ref} className="container mx-auto px-4">
         <div className="relative max-w-6xl mx-auto">
           {/* Horizontal timeline */}
@@ -77,7 +89,7 @@ export default function Experience() {
                     {/* Dot */}
                     <span className="relative mb-3">
                       <span className="absolute -inset-2 rounded-full bg-primary/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <span className="block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30" />
+                      <span className="block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30 group-hover:scale-110 transition-transform" />
                     </span>
                     {/* Period */}
                     <span className="text-sm font-semibold text-primary">
