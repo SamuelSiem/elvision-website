@@ -71,37 +71,60 @@ export default function Experience() {
 
       <motion.div ref={ref} className="container mx-auto px-4">
         <div className="relative max-w-6xl mx-auto">
-          {/* Horizontal timeline */}
-          <div className="overflow-x-auto no-scrollbar">
-            <div className="relative min-w-full">
-              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-primary via-accent to-primary-light opacity-30" />
+          {/* Desktop: evenly spaced horizontal timeline */}
+          <div className="relative hidden md:block py-8">
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-primary via-accent to-primary-light opacity-30" />
 
-              <div className="relative flex items-center gap-10 md:gap-16 py-8">
-                {experiences.map((exp, index) => (
-                  <motion.button
-                    key={exp.period}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    onClick={() => setSelected(index)}
-                    className="group relative flex flex-col items-center focus:outline-none"
-                  >
-                    {/* Dot */}
-                    <span className="relative mb-3">
-                      <span className="absolute -inset-2 rounded-full bg-primary/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <span className="block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30 group-hover:scale-110 transition-transform" />
-                    </span>
-                    {/* Period */}
-                    <span className="text-sm font-semibold text-primary">
-                      {exp.period}
-                    </span>
-                    {/* Company/Title */}
-                    <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm text-center whitespace-nowrap">
-                      {exp.company} · {exp.title}
-                    </span>
-                  </motion.button>
-                ))}
-              </div>
+            <div className="relative flex items-center justify-between gap-10">
+              {experiences.map((exp, index) => (
+                <motion.button
+                  key={exp.period}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  onClick={() => setSelected(index)}
+                  className="group relative flex flex-col items-center focus:outline-none"
+                >
+                  {/* Dot */}
+                  <span className="relative mb-3">
+                    <span className="absolute -inset-2 rounded-full bg-primary/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30 group-hover:scale-110 transition-transform" />
+                  </span>
+                  {/* Period */}
+                  <span className="text-sm font-semibold text-primary">
+                    {exp.period}
+                  </span>
+                  {/* Company/Title */}
+                  <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm text-center whitespace-nowrap">
+                    {exp.company} · {exp.title}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile: stacked vertical timeline */}
+          <div className="md:hidden relative py-2 pl-6">
+            <div className="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-primary-light opacity-30" />
+            <div className="space-y-6">
+              {experiences.map((exp, index) => (
+                <motion.button
+                  key={exp.period}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  onClick={() => setSelected(index)}
+                  className="group relative flex flex-col items-start focus:outline-none"
+                >
+                  <span className="absolute left-0 top-2 block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30" />
+                  <span className="text-sm font-semibold text-primary">
+                    {exp.period}
+                  </span>
+                  <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm">
+                    {exp.company} · {exp.title}
+                  </span>
+                </motion.button>
+              ))}
             </div>
           </div>
         </div>
