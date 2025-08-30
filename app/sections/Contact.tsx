@@ -50,10 +50,17 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      if (!res.ok) throw new Error('Failed');
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+      
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch {
+    } catch (error) {
+      console.error('Contact form error:', error);
       setStatus('error');
     }
   };
@@ -68,8 +75,8 @@ export default function Contact() {
   return (
     <Section id="contact" className="relative overflow-hidden bg-gradient-to-b from-darker via-darker to-[#0A0E23] py-20">
       {/* Background effects for continuous gradient flow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/4 via-transparent to-accent/4 opacity-45" />
-      <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.02)_0%,transparent_65%)] opacity-30" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/4 via-transparent to-accent/4 opacity-45" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.02)_0%,transparent_65%)] opacity-30" />
       {/* Seamless connection from testimonials */}
       <div className="pointer-events-none absolute -top-40 left-0 right-0 h-80 bg-gradient-to-t from-darker via-darker/85 to-transparent" />
       <SectionTitle
@@ -83,12 +90,12 @@ export default function Contact() {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8"
+        className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         {/* Left: Contact Card + Quick Actions */}
         <motion.div
           variants={itemVariants}
-          className="bg-darker/80 backdrop-blur-sm border border-gray-800 rounded-xl p-6 lg:p-8"
+          className="relative z-10 bg-darker/80 backdrop-blur-sm border border-gray-800 rounded-xl p-6 lg:p-8"
         >
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-white">Samuel Simogiarto</h3>
@@ -137,7 +144,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Right: Contact Form */}
-        <motion.div variants={itemVariants} className="bg-darker/60 border border-gray-800 rounded-xl p-6 lg:p-8">
+        <motion.div variants={itemVariants} className="relative z-10 bg-darker/60 border border-gray-800 rounded-xl p-6 lg:p-8">
           <h3 className="text-xl font-semibold text-white mb-4">Or you can fill in the form here:</h3>
           <form onSubmit={handleSubmit} className="space-y-8">
             <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -226,7 +233,13 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               className="mt-6 p-4 bg-red-500/5 border border-red-500/20 rounded-lg text-red-500 text-center"
             >
-              Oops! Something went wrong. Please try again later.
+              <p className="font-medium mb-2">Oops! Something went wrong.</p>
+              <p className="text-sm text-red-400">
+                The contact form is currently not configured. Please use the email or WhatsApp options above, or contact us directly at{' '}
+                <a href="mailto:elvision.technology@gmail.com" className="underline hover:text-red-300">
+                  elvision.technology@gmail.com
+                </a>
+              </p>
             </motion.div>
           )}
         </motion.div>
