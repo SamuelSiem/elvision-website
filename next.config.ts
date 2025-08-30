@@ -2,11 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  optimizePackageImports: [
-    "framer-motion",
-    "@heroicons/react",
-    "react-intersection-observer",
-  ],
   images: {
     unoptimized: false,
     remotePatterns: [
