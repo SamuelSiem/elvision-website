@@ -52,9 +52,10 @@ export default function Contact() {
       });
       
       const data = await res.json();
+      console.log('Contact form response:', { status: res.status, data });
       
       if (!res.ok) {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error(data.error || data.details || 'Failed to send message');
       }
       
       setStatus('success');
@@ -234,8 +235,11 @@ export default function Contact() {
               className="mt-6 p-4 bg-red-500/5 border border-red-500/20 rounded-lg text-red-500 text-center"
             >
               <p className="font-medium mb-2">Oops! Something went wrong.</p>
+              <p className="text-sm text-red-400 mb-3">
+                The contact form encountered an error. Please check the browser console for details.
+              </p>
               <p className="text-sm text-red-400">
-                The contact form is currently not configured. Please use the email or WhatsApp options above, or contact us directly at{' '}
+                You can also contact us directly at{' '}
                 <a href="mailto:elvision.technology@gmail.com" className="underline hover:text-red-300">
                   elvision.technology@gmail.com
                 </a>
