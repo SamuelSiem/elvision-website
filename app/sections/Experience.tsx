@@ -119,37 +119,49 @@ export default function Experience() {
                     {index % 2 === 0 ? (
                       <button
                         onClick={() => setSelected(index)}
-                        className="group absolute -top-28 left-1/2 -translate-x-1/2 w-50 text-center focus:outline-none"
+                        className="group absolute -top-28 left-1/2 -translate-x-1/2 w-50 text-center focus:outline-none cursor-pointer"
                       >
                         <div className="
-                          bg-darker/70
+                          bg-darker/90 backdrop-blur-sm
                           text-gray-300
                           rounded-xl
                           border border-gray-700
                           px-4 py-3
                           transition-all duration-300 ease-in-out
-                          hover:border-accent hover:text-accent
+                          hover:border-accent hover:text-accent hover:bg-darker/95
+                          hover:shadow-lg hover:shadow-accent/20
+                          hover:scale-105 hover:-translate-y-1
+                          active:scale-95
+                          shadow-md
                         ">
-                          <div className="text-xs font-semibold text-primary">{exp.period}</div>
-                          <div className="text-sm text-white mt-1">{exp.company}</div>
+                          <div className="text-xs font-semibold text-primary group-hover:text-accent transition-colors duration-300">{exp.period}</div>
+                          <div className="text-sm text-white mt-1 group-hover:text-accent-light transition-colors duration-300">{exp.company}</div>
+                          {/* Click indicator */}
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       </button>
                     ) : (
                       <button
                         onClick={() => setSelected(index)}
-                        className="group absolute -bottom-28 left-1/2 -translate-x-1/2 w-64 text-center focus:outline-none"
+                        className="group absolute -bottom-28 left-1/2 -translate-x-1/2 w-64 text-center focus:outline-none cursor-pointer"
                       >
                         <div className="
-                          bg-darker/70
+                          bg-darker/90 backdrop-blur-sm
                           text-gray-300
                           rounded-xl
                           border border-gray-700
                           px-4 py-3
                           transition-all duration-300 ease-in-out
-                          hover:border-accent hover:text-accent
+                          hover:border-accent hover:text-accent hover:bg-darker/95
+                          hover:shadow-lg hover:shadow-accent/20
+                          hover:scale-105 hover:translate-y-1
+                          active:scale-95
+                          shadow-md
                         ">
-                          <div className="text-xs font-semibold text-primary">{exp.period}</div>
-                          <div className="text-sm text-white mt-1">{exp.company}</div>
+                          <div className="text-xs font-semibold text-primary group-hover:text-accent transition-colors duration-300">{exp.period}</div>
+                          <div className="text-sm text-white mt-1 group-hover:text-accent-light transition-colors duration-300">{exp.company}</div>
+                          {/* Click indicator */}
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       </button>
                     )}
@@ -207,11 +219,26 @@ export default function Experience() {
                           animate={inView ? { opacity: 1, x: 0 } : {}}
                           transition={{ duration: 0.35, delay: index * 0.06 }}
                           onClick={() => setSelected(index)}
-                          className="col-start-1 justify-self-end mr-4 w-[min(19rem,92%)] text-left focus:outline-none"
+                          className="col-start-1 justify-self-end mr-4 w-[min(19rem,92%)] text-left focus:outline-none cursor-pointer"
                         >
-                          <div className="bg-darker/80 text-gray-300 rounded-xl border border-gray-700 px-4 py-3 transition-all duration-300 hover:border-accent hover:text-accent">
-                            <div className="text-[11px] uppercase tracking-wider text-primary/80">{exp.period}</div>
-                            <div className="text-sm text-white mt-1">{exp.company}</div>
+                          <div className="
+                            bg-darker/90 backdrop-blur-sm 
+                            text-gray-300 
+                            rounded-xl 
+                            border border-gray-700 
+                            px-4 py-3 
+                            transition-all duration-300 
+                            hover:border-accent hover:text-accent hover:bg-darker/95
+                            hover:shadow-lg hover:shadow-accent/20
+                            hover:scale-105 hover:-translate-x-1
+                            active:scale-95
+                            shadow-md
+                            group
+                          ">
+                            <div className="text-[11px] uppercase tracking-wider text-primary/80 group-hover:text-accent transition-colors duration-300">{exp.period}</div>
+                            <div className="text-sm text-white mt-1 group-hover:text-accent-light transition-colors duration-300">{exp.company}</div>
+                            {/* Click indicator */}
+                            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
                         </motion.button>
                       </>
@@ -228,11 +255,26 @@ export default function Experience() {
                           animate={inView ? { opacity: 1, x: 0 } : {}}
                           transition={{ duration: 0.35, delay: index * 0.06 }}
                           onClick={() => setSelected(index)}
-                          className="col-start-2 justify-self-start ml-4 w-[min(19rem,92%)] text-left focus:outline-none"
+                          className="col-start-2 justify-self-start ml-4 w-[min(19rem,92%)] text-left focus:outline-none cursor-pointer"
                         >
-                          <div className="bg-darker/80 text-gray-300 rounded-xl border border-gray-700 px-4 py-3 transition-all duration-300 hover:border-accent hover:text-accent">
-                            <div className="text-[11px] uppercase tracking-wider text-primary/80">{exp.period}</div>
-                            <div className="text-sm text-white mt-1">{exp.company}</div>
+                          <div className="
+                            bg-darker/90 backdrop-blur-sm 
+                            text-gray-300 
+                            rounded-xl 
+                            border border-gray-700 
+                            px-4 py-3 
+                            transition-all duration-300 
+                            hover:border-accent hover:text-accent hover:bg-darker/95
+                            hover:shadow-lg hover:shadow-accent/20
+                            hover:scale-105 hover:translate-x-1
+                            active:scale-95
+                            shadow-md
+                            group
+                          ">
+                            <div className="text-[11px] uppercase tracking-wider text-primary/80 group-hover:text-accent transition-colors duration-300">{exp.period}</div>
+                            <div className="text-sm text-white mt-1 group-hover:text-accent-light transition-colors duration-300">{exp.company}</div>
+                            {/* Click indicator */}
+                            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
                         </motion.button>
                       </>
