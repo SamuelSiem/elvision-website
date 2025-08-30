@@ -96,7 +96,12 @@ export default function Testimonials() {
   };
 
   return (
-    <Section id="testimonials" background="darker" className="overflow-hidden">
+    <Section id="testimonials" className="relative overflow-hidden bg-gradient-to-b from-dark via-dark to-darker overflow-hidden py-20">
+      {/* Background effects for continuous gradient flow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-50" />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.03)_0%,transparent_65%)] opacity-35" />
+      {/* Seamless connection from clients */}
+      <div className="pointer-events-none absolute -top-40 left-0 right-0 h-80 bg-gradient-to-t from-dark via-dark/85 to-transparent" />
       <div className="container mx-auto px-4">
         <SectionTitle
           title="Client Testimonials"

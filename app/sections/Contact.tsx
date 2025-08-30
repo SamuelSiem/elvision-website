@@ -66,7 +66,12 @@ export default function Contact() {
   const inputClasses = "w-full px-4 py-3 rounded-lg bg-darker border border-gray-700 text-main focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors placeholder:text-main-secondary/50";
 
   return (
-    <Section id="contact" background="dark" className="py-20">
+    <Section id="contact" className="relative overflow-hidden bg-gradient-to-b from-darker via-darker to-[#0A0E23] py-20">
+      {/* Background effects for continuous gradient flow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/4 via-transparent to-accent/4 opacity-45" />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.02)_0%,transparent_65%)] opacity-30" />
+      {/* Seamless connection from testimonials */}
+      <div className="pointer-events-none absolute -top-40 left-0 right-0 h-80 bg-gradient-to-t from-darker via-darker/85 to-transparent" />
       <SectionTitle
         title="Get in Touch"
         subtitle="Let's discuss how we can help transform your data into actionable insights"

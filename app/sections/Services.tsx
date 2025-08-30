@@ -72,7 +72,9 @@ export default function Services() {
   };
 
   return (
-    <Section id="services" background="dark">
+    <Section id="clients" className="relative overflow-hidden bg-gradient-to-b from-dark via-[#0A0E23] to-[#0A0E23] py-16">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/7 via-transparent to-accent/7 opacity-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.05)_0%,transparent_65%)] opacity-10" />
       <SectionTitle
         title="Our Services"
         subtitle="Comprehensive data solutions tailored to your business needs"

@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Section from '../components/Section';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button';
@@ -29,7 +29,7 @@ const experiences = [
   {
     period: '2020–2021',
     title: 'Senior Data Analyst',
-    company: 'Save On Foods & Pattison Food Group',
+    company: 'Pattison Food Group',
     description: 'Engineered integrated reporting pipelines in Python and Power BI; developed cross-departmental dashboards identifying $50M revenue opportunities and streamlining COVID-19 reporting processes.',
   },
   {
@@ -49,17 +49,39 @@ const experiences = [
 export default function Experience() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [selected, setSelected] = useState<number | null>(null);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <Section id="experience" background="darker">
+    <Section id="experience" className="relative overflow-hidden bg-gradient-to-b from-[#0A0E23] via-darker to-darker py-20">
+      {/* Background effects for continuous gradient flow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-transparent to-accent/6 opacity-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(var(--primary-rgb),0.04)_0%,transparent_65%)] opacity-10" />
+      {/* Seamless connection from services */}
+      <div className="pointer-events-none absolute -top-40 left-0 right-0 h-80 bg-gradient-to-t from-darker via-darker/85 to-transparent" />
       <SectionTitle
         title="Professional Experience"
         subtitle="A track record of delivering impactful data solutions across industries"
         className="mb-10"
         actions={
-          <Button href="/resume.pdf" variant="primary" size="sm" className="rounded-full px-4">
+          <Button
+            href="https://drive.google.com/uc?export=download&id=1OmUisCWPT7VM9YbYxakHDcWII0pKKGmd"
+            variant="primary"
+            size="md"
+            className="
+              relative inline-flex items-center
+              bg-gradient-to-r bg-accent to-[#3a32a8]/50 hover:bg-[#09044f]
+              text-accent font-bold
+              rounded-full
+              border-1 border-accent
+              shadow-md
+              transition-all duration-300 ease-in-out transform hover:scale-105
+              hover:bg-accent hover:text-white
+              focus:outline-none focus:ring-4 focus:ring-accent/50
+            "
+            >
             Download Resume
           </Button>
+
         }
       />
 
@@ -68,78 +90,159 @@ export default function Experience() {
       <motion.div ref={ref} className="container mx-auto px-4">
         <div className="relative max-w-6xl mx-auto">
           {/* Desktop: evenly spaced horizontal timeline */}
+          {/* Desktop: horizontally scrollable timeline */}
           <div className="relative hidden md:block pt-16 pb-20">
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 rounded-full bg-gradient-to-r from-primary via-accent to-primary-light shadow-[0_0_20px_rgba(41,0,189,0.25)] z-0" />
+            {/* fade edges */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-darker to-transparent z-0 opacity-60" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-darker to-transparent z-0 opacity-60" />
 
-            <div className="relative flex items-center justify-between gap-10 z-10">
+            {/* SCROLLER */}
+            <div
+              ref={scrollerRef}
+              className="relative z-10 flex items-center overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 gap-2 h-[260px]"
+            >
+            <div className="shrink-0 w-12 md:w-16" />
               {experiences.map((exp, index) => (
-                <motion.div
-                  key={exp.period}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative flex-1 flex justify-center"
-                >
-                  {/* Alternating cards */}
-                  {index % 2 === 0 ? (
-                    <>
+                <div key={exp.period} className="relative flex items-center snap-center shrink-0">
+                  {/* DOT + vertical connector in wrapper */}
+                  <div className="relative flex items-center justify-center w-5 h-5">
+                    <span className="block w-5 h-5 rounded-full bg-[#312e81] border-2 border-[#141234] shadow-md" />
+
+                    {/* vertical line */}
+                    {index % 2 === 0 ? (
+                      <span className="absolute -top-7 left-1/2 -translate-x-1/2 h-7 w-[2px] bg-[#2a275a]" />
+                    ) : (
+                      <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 h-7 w-[2px] bg-[#2a275a]" />
+                    )}
+
+                    {/* CARD (anchored to the dot wrapper, so it centers correctly) */}
+                    {index % 2 === 0 ? (
                       <button
                         onClick={() => setSelected(index)}
-                        className="group absolute -top-28 w-64 text-center focus:outline-none"
+                        className="group absolute -top-28 left-1/2 -translate-x-1/2 w-50 text-center focus:outline-none"
                       >
-                        <div className="bg-darker/80 border border-gray-800 rounded-xl p-3 shadow-sm hover:shadow-primary/10 hover:border-primary/50 transition-all">
+                        <div className="
+                          bg-darker/70
+                          text-gray-300
+                          rounded-xl
+                          border border-gray-700
+                          px-4 py-3
+                          transition-all duration-300 ease-in-out
+                          hover:border-accent hover:text-accent
+                        ">
                           <div className="text-xs font-semibold text-primary">{exp.period}</div>
                           <div className="text-sm text-white mt-1">{exp.company}</div>
                         </div>
                       </button>
-                      <span className="absolute -top-8 h-8 w-0.5 bg-primary/70" />
-                    </>
-                  ) : (
-                    <>
-                      <span className="absolute -bottom-8 h-8 w-0.5 bg-primary/70" />
+                    ) : (
                       <button
                         onClick={() => setSelected(index)}
-                        className="group absolute -bottom-28 w-64 text-center focus:outline-none"
+                        className="group absolute -bottom-28 left-1/2 -translate-x-1/2 w-64 text-center focus:outline-none"
                       >
-                        <div className="bg-darker/80 border border-gray-800 rounded-xl p-3 shadow-sm hover:shadow-primary/10 hover:border-primary/50 transition-all">
+                        <div className="
+                          bg-darker/70
+                          text-gray-300
+                          rounded-xl
+                          border border-gray-700
+                          px-4 py-3
+                          transition-all duration-300 ease-in-out
+                          hover:border-accent hover:text-accent
+                        ">
                           <div className="text-xs font-semibold text-primary">{exp.period}</div>
                           <div className="text-sm text-white mt-1">{exp.company}</div>
                         </div>
                       </button>
-                    </>
+                    )}
+                  </div>
+
+                  {/* RIGHT-HAND CONNECTOR */}
+                  {index < experiences.length - 1 && (
+                    <div className="mx-1 h-[4px] rounded-full bg-gradient-to-r from-[#1e1b4b] via-[#312e81] to-[#1e1b4b] w-[160px] sm:w-[180px] md:w-[200px] shrink-0" />
                   )}
-
-                  {/* Center dot */}
-                  <span className="relative z-10 block w-3.5 h-3.5 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/40 ring-2 ring-darker" />
-                </motion.div>
+                </div>
               ))}
+
+            </div>
+
+            {/* Prev/Next arrows (optional, but nice) */}
+            <button
+              type="button"
+              onClick={() => scrollerRef.current?.scrollBy({ left: -280, behavior: 'smooth' })}
+              className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-40 h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20"
+              aria-label="Scroll left"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollerRef.current?.scrollBy({ left: 280, behavior: 'smooth' })}
+              className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-40 h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20"
+              aria-label="Scroll right"
+            >
+              ›
+            </button>
+          </div>
+
+          {/* Mobile: center spine with alternating cards */}
+          <div className="md:hidden relative py-8">
+            {/* center vertical line */}
+            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-[#2a275a]" />
+
+            <div className="space-y-10">
+              {experiences.map((exp, index) => {
+                const isLeft = index % 2 === 0;
+                return (
+                  <div key={exp.period} className="relative grid grid-cols-2 items-center">
+                    {/* DOT on spine (above everything) */}
+                    <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 w-3.5 h-3.5 rounded-full bg-[#312e81] border-2 border-[#141234] shadow-sm" />
+                  
+                    {/* LEFT SIDE (card + connector) */}
+                    {isLeft && (
+                      <>
+                        {/* connector from spine to card */}
+                        <div className="absolute left-1/2 -translate-x-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 w-2 h-[2px] bg-[#2a275a]" />
+                        {/* card */}
+                        <motion.button
+                          initial={{ opacity: 0, x: -16 }}
+                          animate={inView ? { opacity: 1, x: 0 } : {}}
+                          transition={{ duration: 0.35, delay: index * 0.06 }}
+                          onClick={() => setSelected(index)}
+                          className="col-start-1 justify-self-end mr-4 w-[min(19rem,92%)] text-left focus:outline-none"
+                        >
+                          <div className="bg-darker/80 text-gray-300 rounded-xl border border-gray-700 px-4 py-3 transition-all duration-300 hover:border-accent hover:text-accent">
+                            <div className="text-[11px] uppercase tracking-wider text-primary/80">{exp.period}</div>
+                            <div className="text-sm text-white mt-1">{exp.company}</div>
+                          </div>
+                        </motion.button>
+                      </>
+                    )}
+
+                    {/* RIGHT SIDE (card + connector) */}
+                    {!isLeft && (
+                      <>
+                        {/* connector from spine to card */}
+                        <div className="absolute left-1/2 translate-x-2 top-1/2 -translate-y-1/2 w-2 h-[2px] bg-[#2a275a]" />
+                        {/* card */}
+                        <motion.button
+                          initial={{ opacity: 0, x: 16 }}
+                          animate={inView ? { opacity: 1, x: 0 } : {}}
+                          transition={{ duration: 0.35, delay: index * 0.06 }}
+                          onClick={() => setSelected(index)}
+                          className="col-start-2 justify-self-start ml-4 w-[min(19rem,92%)] text-left focus:outline-none"
+                        >
+                          <div className="bg-darker/80 text-gray-300 rounded-xl border border-gray-700 px-4 py-3 transition-all duration-300 hover:border-accent hover:text-accent">
+                            <div className="text-[11px] uppercase tracking-wider text-primary/80">{exp.period}</div>
+                            <div className="text-sm text-white mt-1">{exp.company}</div>
+                          </div>
+                        </motion.button>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Mobile: stacked vertical timeline */}
-          <div className="md:hidden relative py-2 pl-6">
-            <div className="absolute left-3 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b from-primary via-accent to-primary-light opacity-40" />
-            <div className="space-y-6">
-              {experiences.map((exp, index) => (
-                <motion.button
-                  key={exp.period}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onClick={() => setSelected(index)}
-                  className="group relative flex flex-col items-start focus:outline-none"
-                >
-                  <span className="absolute left-0 top-2 block w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow shadow-primary/30" />
-                  <span className="text-sm font-semibold text-primary">
-                    {exp.period}
-                  </span>
-                  <span className="mt-1 text-main-secondary group-hover:text-white transition-colors text-sm">
-                    {exp.company}
-                  </span>
-                </motion.button>
-              ))}
-            </div>
-          </div>
         </div>
       </motion.div>
 
@@ -159,7 +262,7 @@ export default function Experience() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-              className="w-full max-w-2xl bg-darker/95 border border-gray-800 rounded-2xl p-6"
+              className="w-full max-w-2xl bg-[#0f0f1a]/95 border border-gray-800 rounded-2xl p-6 backdrop-blur-sm"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-start justify-between gap-4">
